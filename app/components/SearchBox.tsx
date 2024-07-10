@@ -1,9 +1,31 @@
-export default function SearchBox() {
+import React, { useState } from "react";
+
+
+interface SearchBoxProps {
+    onSearch: (searchTerm: string) => void;
+}
+
+export default function SearchBox({ onSearch }: SearchBoxProps) {
+    const [searchTerm, setSearchTerm] = useState('');
+    const [error, setError] = useState('');
+
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        if (!searchTerm.trim()) {
+            setError('Please enter a search term');
+            return;
+        }
+        setError('');
+        onSearch(searchTerm);
+    };
+
     return (
-        <div className="w-full max-w-2xl flex flex-col items-center space-y-4">
+        <form onSubmit={handleSubmit} className="w-full max-w-2xl flex flex-col items-center space-y-4">
             <input
                 type="text"
                 placeholder="Search..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full px-4 py-2 text-xl border border-gray-300 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent"
             />
             <button
@@ -11,6 +33,7 @@ export default function SearchBox() {
             >
                 Search
             </button>
-        </div>
+            {error && <p className="text-red-500">{error}</p>}
+        </form>
     );
 }
