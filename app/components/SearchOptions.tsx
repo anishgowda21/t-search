@@ -1,6 +1,6 @@
 export default function SearchOptions() {
     return (
-        <div className="flex space-x-4">
+        <div className="flex justify-center space-x-4">
             <label className="flex items-center">
                 <input type="radio" name="searchOption" value="web" className="mr-2" /> Web
             </label>
