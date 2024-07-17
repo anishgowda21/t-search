@@ -3,9 +3,11 @@
 import { useSearchParams } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import { getSearchUrl } from '../constants/api';
+import NyaaResults from './nyaa'
 
 export default function SearchResults() {
     const searchParams = useSearchParams();
+    console.log(searchParams);
     const searchOption = searchParams.get('option') || 'yts';
     const query = searchParams.get('query') || '';
     const [results, setResults] = useState<any>(null);
@@ -40,6 +42,9 @@ export default function SearchResults() {
     if (error) return <div>Error: {error}</div>;
     if (!results) return <div>No results found</div>;
 
+    if (searchOption == 'nyaa') {
+        return <NyaaResults results={results} />;
+    }
     return (
         <div>
             <h1>Search Results for "{query}" in {searchOption}</h1>
