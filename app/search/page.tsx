@@ -7,7 +7,6 @@ import NyaaResults from './nyaa'
 
 export default function SearchResults() {
     const searchParams = useSearchParams();
-    console.log(searchParams);
     const searchOption = searchParams.get('option') || 'yts';
     const query = searchParams.get('query') || '';
     const [results, setResults] = useState<any>(null);
