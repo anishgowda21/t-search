@@ -38,7 +38,7 @@ const NyaaResults: React.FC<NyaaResultProps> = ({ results }) => {
 
     return (
         <div>
-            <h2>Search Results for "{decodeURI(results.query.toString())}"</h2>
+            <h2>Search Results for &quot;{decodeURI(results.query.toString())}&quot;</h2>
             <p>Total Results: {results.length.toString()}</p>
             <div className="overflow-x-auto">
                 <table className="table-auto bg-gray-500">

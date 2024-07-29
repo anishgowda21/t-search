@@ -1,7 +1,6 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import ISO6391 from "iso-639-1";
-import { FaMagnet } from "react-icons/fa";
-import { HiDownload } from "react-icons/hi";
+import Image from "next/image";
 
 type Base64<imageType extends string> =
   `data:image/${imageType};base64${string}`;
@@ -54,13 +53,16 @@ const formateTorrent = (torrData: torrentObject[]) => {
   }, {});
 };
 
-const YtsResults: React.FC<ytsResultProps> = React.memo(({ results }) => {
+const YtsResults: React.FC<ytsResultProps> = ({ results }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const resultsPerPage = 5;
   const indexOfLastResult = currentPage * resultsPerPage;
   const indexOfFirstResult = indexOfLastResult - resultsPerPage;
 
-  const currentResults = results.data.slice(indexOfFirstResult, indexOfLastResult);
+  const currentResults = results.data.slice(
+    indexOfFirstResult,
+    indexOfLastResult
+  );
 
   const totalPages = Math.ceil(results.data.length / resultsPerPage);
 
@@ -75,14 +77,16 @@ const YtsResults: React.FC<ytsResultProps> = React.memo(({ results }) => {
       });
   };
 
-  const handlePagechange = (newPage: number) => {
+  const handlePageChange = (newPage: number) => {
     setCurrentPage(newPage);
   };
+
   return (
     <div>
-      {results.movie_count === 0 ?
-        (<h3>No results</h3>) :
-        (<>
+      {results.movie_count === 0 ? (
+        <h3>No results</h3>
+      ) : (
+        <>
           {currentResults.map((mObj, idx) => {
             const groupedTorrents = formateTorrent(mObj.torrents);
 
@@ -91,9 +95,9 @@ const YtsResults: React.FC<ytsResultProps> = React.memo(({ results }) => {
                 key={idx}
                 className="overflow-x-auto m-6 p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700"
               >
-                <div className="flex">
+                <div className="flex flex-col md:flex-row">
                   <img
-                    className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-s-lg"
+                    className="object-cover w-full rounded-t-lg h-96 md:h-auto md:w-48 md:rounded-none md:rounded-l-lg"
                     src={mObj.cover_image}
                     alt={mObj.name.toString()}
                   ></img>
@@ -136,27 +140,33 @@ const YtsResults: React.FC<ytsResultProps> = React.memo(({ results }) => {
             );
           })}
         </>
-        )}
+      )}
 
-      {results.movie_count !== 0 &&
-        (<div className="flex justify-center px-3 mt-4">
+      {results.movie_count !== 0 && (
+        <div className="flex justify-center px-3 mt-4">
           <button
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
             disabled={currentPage === 1}
-            onClick={() => handlePagechange(Math.max(currentPage - 1, 1))}
-          >Prev</button>
-          <span
-            className="text-white m-6"
-          >Page {currentPage} of {totalPages}</span>
+            onClick={() => handlePageChange(Math.max(currentPage - 1, 1))}
+          >
+            Prev
+          </button>
+          <span className="text-white m-6">
+            Page {currentPage} of {totalPages}
+          </span>
           <button
             className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
             disabled={currentPage === totalPages}
-            onClick={() => handlePagechange(Math.min(currentPage + 1, totalPages))}
-          >Next</button>
-        </div>)
-      }
+            onClick={() =>
+              handlePageChange(Math.min(currentPage + 1, totalPages))
+            }
+          >
+            Next
+          </button>
+        </div>
+      )}
     </div>
   );
-});
+};
 
 export default YtsResults;

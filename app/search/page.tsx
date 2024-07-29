@@ -50,7 +50,7 @@ export default function SearchResults() {
   return (
     <div>
       <h1>
-        Search Results for "{query}" in {searchOption}
+        Search Results for &quot;{query}&quot; in {searchOption}
       </h1>
       <pre>{JSON.stringify(results, null, 2)}</pre>
     </div>
