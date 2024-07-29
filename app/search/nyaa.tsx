@@ -41,9 +41,9 @@ const NyaaResults: React.FC<NyaaResultProps> = ({ results }) => {
             <h2>Search Results for "{decodeURI(results.query.toString())}"</h2>
             <p>Total Results: {results.length.toString()}</p>
             <div className="overflow-x-auto">
-                <table className="table-auto bg-white">
+                <table className="table-auto bg-gray-500">
                     <thead>
-                        <tr className="bg-gray-200 text-gray-600 uppercase text-sm leading-normal">
+                        <tr className="bg-gray-600 text-gray-200 uppercase text-sm leading-normal">
                             <th className="py-3 px-6 text-left">Name</th>
                             <th className="py-3 px-6 text-left">Size</th>
                             <th className="py-3 px-6 text-left">Date</th>
@@ -53,7 +53,7 @@ const NyaaResults: React.FC<NyaaResultProps> = ({ results }) => {
                             <th className="py-3 px-6 text-center">Links</th>
                         </tr>
                     </thead>
-                    <tbody className="text-gray-600 text-sm font-light">
+                    <tbody className="text-gray-800 text-sm font-light">
                         {results.data.map((torrent, index) => (
                             <tr key={index} className="border-b border-gray-200 hover:bg-gray-100">
                                 <td className="py-3 px-6 text-left">
