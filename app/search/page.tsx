@@ -46,13 +46,7 @@ export default function SearchResults() {
     return <NyaaResults results={results} />;
   } else if (searchOption == "yts") {
     return <YtsResults results={results} />;
+  } else {
+    return <div>404 Not Found</div>;
   }
-  return (
-    <div>
-      <h1>
-        Search Results for &quot;{query}&quot; in {searchOption}
-      </h1>
-      <pre>{JSON.stringify(results, null, 2)}</pre>
-    </div>
-  );
 }

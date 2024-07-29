@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import ISO6391 from "iso-639-1";
-import Image from "next/image";
 
 type Base64<imageType extends string> =
   `data:image/${imageType};base64${string}`;
